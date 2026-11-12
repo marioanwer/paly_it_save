@@ -3,7 +3,7 @@ from paddleocr import PaddleOCR
 
 _ENGINES = {}  # نحمّل كل موديل مرة واحدة بس
 _LANG_MAP = {"en": "en", "ar": "ar"}
-SEP_GAP = 1.5  # فجوة أكبر من 1.5 x ارتفاع السطر = فاصل أعمدة (يتكتب tab)
+SEP_GAP = 1.5 
 
 
 def _get_engine(lang: str, use_gpu: bool = True):

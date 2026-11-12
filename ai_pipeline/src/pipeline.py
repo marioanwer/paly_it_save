@@ -26,10 +26,13 @@ def run_pipeline(file_path: str, lang: str = "auto", output_path: str = None, us
         result["status"] = "failed"
         result["errors"].append({"file": p.name, "stage": "extraction", "message": str(e)})
 
-    # 2) فهم النص واستخراج الأسئلة (على نص كل الصفحات مع بعض)
+    # 2) استخراج الأسئلة من نص كل الصفحات مع بعض
     if result["pages"]:
         try:
             result["questions"] = structure_document(result["pages"])
+            if not result["questions"]:
+                result["errors"].append({"file": p.name, "stage": "structuring",
+                                         "message": "no multiple-choice questions found"})
         except Exception as e:
             result["status"] = "partial"
             result["errors"].append({"file": p.name, "stage": "structuring", "message": str(e)})
